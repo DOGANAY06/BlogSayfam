@@ -159,6 +159,24 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("EntityLayer.Concrete.NewsLetter", b =>
+                {
+                    b.Property<int>("MailID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Mail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("MailStatus")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MailID");
+
+                    b.ToTable("NewsLetters");
+                });
+
             modelBuilder.Entity("EntityLayer.Concrete.Review", b =>
                 {
                     b.Property<int>("ReviewID")
@@ -167,6 +185,9 @@ namespace DataAccessLayer.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerID")
                         .HasColumnType("int");
 
                     b.Property<string>("Product")
@@ -194,6 +215,8 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("CategoryID");
 
+                    b.HasIndex("CustomerID");
+
                     b.ToTable("Reviews");
                 });
 
@@ -216,12 +239,25 @@ namespace DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EntityLayer.Concrete.Customer", "Customer")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Category", b =>
                 {
                     b.Navigation("Review");
+                });
+
+            modelBuilder.Entity("EntityLayer.Concrete.Customer", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Review", b =>

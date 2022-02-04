@@ -20,5 +20,8 @@ namespace EntityLayer.Concrete
         public string CustomerImage { get; set; }
 
         public bool  CustomerStatus{ get; set; }
+
+        public List<Review> Reviews { get; set; }
+        //görüşlerden bir değer alacaksın ilişkilisin
     }
 }

@@ -1,0 +1,81 @@
+﻿@model EntityLayer.Concrete.Customer
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<!--sweetalert dahil ediyorum ekrana birşey göstermek için messagebox gibi-->
+
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">Kayıt Ol</h3>
+        <div class="inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100">
+                @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                { //İNDEX SAYFASINA DÖN REGİSTERCONTROLLERDEN VERİLERİ SAĞLA POST OLDUĞUNDA DÖN
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">Ad ve Soyadınız</label>
+
+                            @Html.TextBoxFor(x => x.CustomerName,new { @class =  "form-control"})
+                            @Html.ValidationMessageFor(x => x.CustomerName,"", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom02">
+                                Mail Adresi</label>
+                                @Html.TextBoxFor(x => x.CustomerMail,new { @class = "form-control"})
+                                @Html.ValidationMessageFor(x => x.CustomerMail,"", new { @class = "text-danger" })
+                                @*<input type="text" class="form-control" id="validationDefault02" placeholder="" required="">*@
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1 mb-2">Şifre</label>
+                            @Html.TextBoxFor(x => x.CustomerPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.CustomerPassword, "", new { @class = "text-danger" })
+                            @*<input type="password" class="form-control" id="password1" placeholder="" required="">*@
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword2 mb-2">Profile Yolu</label>
+                            @Html.TextBoxFor(x => x.CustomerImage, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.CustomerImage, "", new { @class = "text-danger" })
+                            @*<input type="text" class="form-control" id="password2" placeholder="" required="">*@
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary submit mb-4">Kayıt Ol</button>
+                    <p>
+                        <a href="#" id="btn1">Tüm şartları okudum ve kabul ediyorum</a>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <br />
+    <script>
+        $('#btn1').click(function () {
+            swal({
+                title: "Site kullanım şartları onayı",
+                text: "Sayfamızda vereceğiniz görüşler doğrulugu maili,adı, soyadı gecen kisye aittir. Firmamız görüşlerden dolayı Herhangi bir mechuliyet kabul etmemektedir. ",
+                icon: "info",
+                buttons: true,
+
+            })
+                .then((willAgree) => {
+                    if (willAgree) {
+                        swal("Kullanım şartları onaylandı", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("Kullanım şartlarını onaylayınız...");
+                    }
+                });
+            
+        });
+        
+    </script>
+</section>
+

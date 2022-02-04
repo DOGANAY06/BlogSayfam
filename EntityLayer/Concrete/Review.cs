@@ -24,6 +24,8 @@ namespace EntityLayer.Concrete
 
         public int CategoryID { get; set; }
         public Category Category { get; set; } //HER ELEŞTRİNİN KENDİ KATEGORİSİ VAR
+        public int CustomerID { get; set; }
+        public Customer Customer { get; set; } //HER ELEŞTRİNİN KENDİ KATEGORİSİ VAR
         public List<Comment> Comments { get; set; }
     }
 }
